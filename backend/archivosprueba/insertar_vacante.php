@@ -1,6 +1,6 @@
 <?php
 
-require_once '../config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 
 $sql = "INSERT INTO vacantes
 (
@@ -26,11 +26,11 @@ VALUES
 $stmt = $conexion->prepare($sql);
 
 $stmt->execute([
-    ':titulo' => 'Desarrollador PHP Jr',
+    ':titulo' => 'Desarrollador WEB Jr',
     ':empresa' => 'Empresa Demo',
     ':ubicacion' => 'CDMX',
     ':modalidad' => 'Remoto',
-    ':salario' => '$18,000',
+    ':salario' => '$20,000',
     ':descripcion' => 'Vacante de prueba para Job Hunter AI',
     ':fuentes' => 'Manual'
 ]);

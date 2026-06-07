@@ -1,7 +1,7 @@
 <?php
 
-require_once '../../config/database.php';
-require_once '../models/Vacante.php';
+require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../models/Vacante.php';
 
 class VacantesController
 {
@@ -9,8 +9,8 @@ class VacantesController
     {
         global $conexion;
 
-        $vacante = new Vacante($conexion);
+        $vacanteModel = new Vacante($conexion);
 
-        return $vacante->obtenerTodas();
+        return $vacanteModel->obtenerTodas();
     }
 }
