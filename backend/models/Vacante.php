@@ -45,6 +45,30 @@ class Vacante
         ]);
     }
 
+    //Funcion para la compatibilidad de la vacante con el perfil del usuario
+    public function calcularCompatibilidad($tecnologiasPerfil, $descripcionVacante){
+        $perfil = explode(',', strtolower($tecnologiasPerfil));
+
+        $coincidencias = 0;
+        foreach($perfil as $tecnologia){
+            $tecnologia = trim($tecnologia);
+            if(
+                strpos(
+                    strtolower($descripcionVacante),
+                    $tecnologia
+                ) !== false
+            ){
+                $coincidencias++;
+            }
+        }
+        if(count($perfil) == 0){
+            return 0;
+        }
+        return round(
+            ($coincidencias / count($perfil)) * 100
+        );
+    }
+
     //Para guardar las vacantes nuevas
     public function guardar(
         $titulo,

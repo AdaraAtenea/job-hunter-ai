@@ -38,6 +38,7 @@ require_once __DIR__ . '/../layouts/sidebar.php';
                     <th>Modalidad</th>
                     <th>Salario</th>
                     <th>Acciones</th>
+                    <th>Compatibilidad</th>
                 </tr>
             </thead>
 
@@ -51,10 +52,11 @@ require_once __DIR__ . '/../layouts/sidebar.php';
                     <td><?= $vacante['empresa'] ?></td>
                     <td><?= $vacante['ubicacion'] ?></td>
                     <td><?= $vacante['modalidad'] ?></td>
-                    <td><?= $vacante['salario'] ?></td>
+                    <td>$<?= $vacante['salario'] ?></td>
                     <td>
                         <a href="editar_vacante.php?id=<?= $vacante['id'] ?>" class="btn btn-warning btn-sm">Editar</a>
                     </td>
+                    <td><?= $vacante['compatibilidad'] ?>%</td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>

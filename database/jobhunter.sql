@@ -36,3 +36,6 @@ CREATE TABLE perfil_usuario (
     tecnologias TEXT,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE vacantes
+ADD compatibilidad INT DEFAULT 0;
