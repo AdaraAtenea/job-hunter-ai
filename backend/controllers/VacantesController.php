@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../models/Vacante.php';
+require_once __DIR__ . '/../models/PerfilUsuario.php';
 
 class VacantesController
 {
@@ -35,14 +36,20 @@ class VacantesController
     public function guardar(){
         global $conexion;
         $vacante = new Vacante($conexion);
+        $perfilModel = new PerfilUsuario($conexion);
+        $perfil = $perfilModel->obtener();
+        $compatibilidad = $vacante->calcularCompatibilidad(
+            $perfil['tecnologias'],
+            $_POST['descripcion']
+        );
         return $vacante->guardar(
             $_POST['titulo'],
             $_POST['empresa'],
             $_POST['ubicacion'],
             $_POST['modalidad'],
             $_POST['salario'],
-            $_POST['descripcion']
-        );
+            $_POST['descripcion'],
+            $compatibilidad);
     }
 }
 

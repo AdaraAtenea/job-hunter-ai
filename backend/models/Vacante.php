@@ -70,40 +70,47 @@ class Vacante
     }
 
     //Para guardar las vacantes nuevas
-    public function guardar(
-        $titulo,
-        $empresa,
-        $ubicacion,
-        $modalidad,
-        $salario,
-        $descripcion
+   public function guardar(
+    $titulo,
+    $empresa,
+    $ubicacion,
+    $modalidad,
+    $salario,
+    $descripcion,
+    $compatibilidad
+)
+{
+    $sql = "INSERT INTO vacantes
+    (
+        titulo,
+        empresa,
+        ubicacion,
+        modalidad,
+        salario,
+        descripcion,
+        compatibilidad
     )
-    {
-        $sql = "INSERT INTO vacantes
-            (   titulo,
-                empresa,
-                ubicacion,
-                modalidad,
-                salario,
-                descripcion
-            )
-            VALUES
-            (   :titulo,
-                :empresa,
-                :ubicacion,
-                :modalidad,
-                :salario,
-                :descripcion
-            )
-        ";
-        $stmt = $this->conexion->prepare($sql);
-        return $stmt->execute([
-            ':titulo' => $titulo,
-            ':empresa' => $empresa,
-            ':ubicacion' => $ubicacion,
-            ':modalidad' => $modalidad,
-            ':salario' => $salario,
-            ':descripcion' => $descripcion
-        ]);
-    }
+    VALUES
+    (
+        :titulo,
+        :empresa,
+        :ubicacion,
+        :modalidad,
+        :salario,
+        :descripcion,
+        :compatibilidad
+    )";
+
+    $stmt = $this->conexion->prepare($sql);
+
+    return $stmt->execute([
+        ':titulo' => $titulo,
+        ':empresa' => $empresa,
+        ':ubicacion' => $ubicacion,
+        ':modalidad' => $modalidad,
+        ':salario' => $salario,
+        ':descripcion' => $descripcion,
+        ':compatibilidad' => $compatibilidad
+    ]);
+}
 }
