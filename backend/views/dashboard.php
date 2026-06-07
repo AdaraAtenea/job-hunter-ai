@@ -3,18 +3,14 @@ require_once __DIR__ . '/../controllers/DashboardController.php';
 
 $controller = new DashboardController();
 $metricas = $controller->obtenerMetricas();
+
+require_once __DIR__ . '/../layouts/header.php';
+require_once __DIR__ . '/../layouts/sidebar.php';
+
 ?>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Dashboard</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="container mt-4">
-            <h1 class="mb-4">Job Hunter IA</h1>
+    <div class="container mt-4">
+        <h1 class="mb-4">Job Hunter IA</h1>
             <div class="row">
                 <div class="col-md-3">
                     <div class="card text-center">
@@ -49,6 +45,8 @@ $metricas = $controller->obtenerMetricas();
                     </div>
                 </div>
             </div>
-        </div>
-    </body>
-</html>
+    </div>
+
+<?php
+require_once __DIR__ . '/../layouts/footer.php';
+?>

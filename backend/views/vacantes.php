@@ -6,49 +6,30 @@ $controller = new VacantesController();
 
 $vacantes = $controller->listar();
 
+require_once __DIR__ . '/../layouts/header.php';
+require_once __DIR__ . '/../layouts/sidebar.php';
+
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Vacantes Job Hunter IA</title>
+<!-- CONTENIDO DE LA PAGINA -->
 
-    <style>
-        body{
-            font-family: Arial;
-            margin:40px;
-        }
-        table{
-            width:100%;
-            border-collapse:collapse;
-        }
-        th, td{
-            border:1px solid #ccc;
-            padding:10px;
-            text-align:left;
-        }
-        th{
-            background:#f2f2f2;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container mt-4">
-        <h1 class="mb-4">Job Hunter IA</h1>
-    </div>
+<div class="container mt-4">
 
     <h1>Vacantes Registradas</h1>
+
     <div class="alert alert-info">
-        Total de vacantes: <strong><?= count ($vacantes) ?></strong>
+        Total de vacantes:
+        <strong><?= count($vacantes) ?></strong>
     </div>
 
-    <a href="#" class="btn btn-success mb-3">Nueva Vacante</a>
-    
+    <a href="#" class="btn btn-success mb-3">
+        Nueva Vacante
+    </a>
+
     <div class="table-responsive">
+
         <table class="table table-bordered table-hover">
+
             <thead class="table-dark">
                 <tr>
                     <th>ID</th>
@@ -59,8 +40,11 @@ $vacantes = $controller->listar();
                     <th>Salario</th>
                 </tr>
             </thead>
+
             <tbody>
+
                 <?php foreach($vacantes as $vacante): ?>
+
                 <tr>
                     <td><?= $vacante['id'] ?></td>
                     <td><?= $vacante['titulo'] ?></td>
@@ -69,9 +53,17 @@ $vacantes = $controller->listar();
                     <td><?= $vacante['modalidad'] ?></td>
                     <td><?= $vacante['salario'] ?></td>
                 </tr>
+
                 <?php endforeach; ?>
+
             </tbody>
+
         </table>
+
     </div>
-</body>
-</html>
+
+</div>
+
+<?php
+require_once __DIR__ . '/../layouts/footer.php';
+?>
