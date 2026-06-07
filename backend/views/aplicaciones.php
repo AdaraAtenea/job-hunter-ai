@@ -43,7 +43,36 @@ $aplicaciones = $controller->listar();
                 <tr>
                     <td><?= $aplicacion['titulo'] ?></td>
                     <td><?= $aplicacion['empresa'] ?></td>
-                    <td><?= $aplicacion['estado'] ?></td>
+                    <!--Actualizacion en colores para los eatsdos-->
+                    <td>
+                        <?php
+                            $clase = 'secondary';
+                            switch($aplicacion['estado']){
+                                case 'Pendiente':
+                                    $clase = 'warning';
+                                    break;
+                                case 'Aplicado':
+                                    $clase = 'primary';
+                                    break;
+                                case 'Entrevista':
+                                    $clase = 'info';
+                                    break;
+                                case 'Oferta':
+                                    $clase = 'success';
+                                    break;
+                                case 'Contratado':
+                                    $clase = 'success';
+                                    break;
+                                case 'Rechazado':
+                                    $clase = 'danger';
+                                    break;
+                            }
+                        ?>
+                        <span class="badge bg-<?= $clase ?>">
+                            <?= $aplicacion['estado'] ?>
+                        </span>
+                    </td>
+                    
                     <td><?= date('d/m/Y', strtotime($aplicacion['fecha_aplicacion'])) ?></td>
                 </tr>
             <?php endforeach; ?>

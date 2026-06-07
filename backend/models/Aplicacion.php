@@ -53,4 +53,20 @@ class Aplicacion
             ':notas' => $notas
         ]);
     }
+    //Metodo de actualizar el estado de la aplicacion
+    public function actualizarEstado($id, $estado)
+    {
+        $sql = "
+            UPDATE aplicaciones
+            SET estado = :estado
+            WHERE id = :id
+        ";
+
+        $stmt = $this->conexion->prepare($sql);
+
+        return $stmt->execute([
+            ':id' => $id,
+            ':estado' => $estado
+        ]);
+    }
 }
