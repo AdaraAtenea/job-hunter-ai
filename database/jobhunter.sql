@@ -25,3 +25,14 @@ CREATE TABLE aplicaciones (
     FOREIGN KEY (vacante_id)
     REFERENCES vacantes(id)
 );
+
+CREATE TABLE perfil_usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_profesional VARCHAR(150),
+    experiencia_anios DECIMAL(4,1),
+    salario_minimo DECIMAL(10,2),
+    salario_ideal DECIMAL(10,2),
+    ubicaciones TEXT,
+    tecnologias TEXT,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
