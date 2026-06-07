@@ -14,3 +14,14 @@ CREATE TABLE vacantes(
     fecha_publicacion DATE,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE aplicaciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vacante_id INT NOT NULL,
+    fecha_aplicacion DATE,
+    estado VARCHAR(50) DEFAULT 'Pendiente',
+    notas TEXT,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (vacante_id)
+    REFERENCES vacantes(id)
+);
