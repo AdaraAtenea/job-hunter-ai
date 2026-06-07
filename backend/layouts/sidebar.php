@@ -5,6 +5,12 @@
             <hr>
             <ul class="nav flex-column">
                 <li class="nav-item">
+                    <a class="nav-link text-white" href="perfil.php">
+                        <i class="bi bi-person"></i>Mi Perfil
+                    </a>
+                </li>
+                
+                <li class="nav-item">
                     <a class="nav-link text-white" href="dashboard.php">
                         <i class="bi bi-speedometer2"></i>
                         Dashboard
