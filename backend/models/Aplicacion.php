@@ -27,6 +27,7 @@ class Aplicacion
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
     //FUNCION PARA GUARDAR LAS APLICACIONES
     public function guardar($vacanteId, $estado, $notas = '')
     {
