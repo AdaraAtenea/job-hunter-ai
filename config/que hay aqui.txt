@@ -1,0 +1,7 @@
+Aquí esta la configuración del proyecto
+
+config/
+│
+├── database.php
+├── telegram.php
+└── openai.php

@@ -1,0 +1,5 @@
+database/
+│
+└── jobhunter.sql
+
+Se encarga de todas las tablas del proyecto

@@ -1,0 +1,12 @@
+backend/
+│
+├── api/
+├── controllers/
+├── models/
+└── services/
+
+Responsabilidades:
+° Conectarse a MySQL
+° Guardar vacantes
+° Consultar vacantes
+° Exportar a Excel

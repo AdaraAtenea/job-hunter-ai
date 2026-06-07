@@ -1,0 +1,7 @@
+Aquí se guardaran los documentos
+
+docs/
+│
+├── CV_2026.pdf
+├── Carta_General.docx
+└── Portafolio.pdf

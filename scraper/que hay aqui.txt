@@ -1,0 +1,8 @@
+scraper/
+│
+├── linkedin.py
+├── indeed.py
+├── occ.py
+└── computrabajo.py
+
+Aquí esta el cerebro que busca las vacantes
