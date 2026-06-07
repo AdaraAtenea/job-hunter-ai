@@ -27,4 +27,29 @@ class Aplicacion
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    //FUNCION PARA GUARDAR LAS APLICACIONES
+    public function guardar($vacanteId, $estado, $notas = '')
+    {
+        $sql = "
+            INSERT INTO aplicaciones
+            (
+                vacante_id,
+                fecha_aplicacion,
+                estado,
+                notas
+            )
+            VALUES
+            (
+                :vacante_id,
+                CURDATE(),
+                :estado,
+                :notas
+            )";
+        $stmt = $this->conexion->prepare($sql);
+        return $stmt->execute([
+            ':vacante_id' => $vacanteId,
+            ':estado' => $estado,
+            ':notas' => $notas
+        ]);
+    }
 }
