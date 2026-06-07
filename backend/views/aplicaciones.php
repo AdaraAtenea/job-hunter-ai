@@ -21,55 +21,34 @@ $aplicaciones = $controller->listar();
 </head>
 
 <body>
-
 <div class="container mt-4">
-
     <h1>Aplicaciones Enviadas</h1>
 
     <div class="alert alert-info">
-
         Total aplicaciones:
         <strong><?= count($aplicaciones) ?></strong>
-
     </div>
 
     <table class="table table-bordered table-hover">
-
         <thead class="table-dark">
-
             <tr>
-
                 <th>Vacante</th>
                 <th>Empresa</th>
                 <th>Estado</th>
                 <th>Fecha</th>
-
             </tr>
-
         </thead>
-
         <tbody>
-
             <?php foreach($aplicaciones as $aplicacion): ?>
-
                 <tr>
-
                     <td><?= $aplicacion['titulo'] ?></td>
-
                     <td><?= $aplicacion['empresa'] ?></td>
-
                     <td><?= $aplicacion['estado'] ?></td>
-
-                    <td><?= $aplicacion['fecha_aplicacion'] ?></td>
-
+                    <td><?= date('d/m/Y', strtotime($aplicacion['fecha_aplicacion'])) ?></td>
                 </tr>
-
             <?php endforeach; ?>
-
         </tbody>
-
     </table>
-
 </div>
 
 </body>
