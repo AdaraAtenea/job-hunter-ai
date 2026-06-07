@@ -18,6 +18,33 @@ class Vacante
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    //Obtiene por ID de la vacante
+    public function obtenerPorId($id){
+        $sql = "SELECT * FROM vacantes WHERE id = :id";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([
+            ':id' => $id
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+   
+    //Actualiza los datos de la Vacante
+    public function actualizar(
+        $id,
+        $titulo,
+        $empresa
+    )
+    {   $sql = "UPDATE vacantes SET titulo = :titulo, empresa = :empresa WHERE id = :id";
+        $stmt = $this->conexion->prepare($sql);
+
+        return $stmt->execute([
+            ':id' => $id,
+            ':titulo' => $titulo,
+            ':empresa' => $empresa
+        ]);
+    }
+
     //Para guardar las vacantes nuevas
     public function guardar(
         $titulo,
@@ -28,10 +55,8 @@ class Vacante
         $descripcion
     )
     {
-        $sql = "
-            INSERT INTO vacantes
-            (
-                titulo,
+        $sql = "INSERT INTO vacantes
+            (   titulo,
                 empresa,
                 ubicacion,
                 modalidad,
@@ -39,8 +64,7 @@ class Vacante
                 descripcion
             )
             VALUES
-            (
-                :titulo,
+            (   :titulo,
                 :empresa,
                 :ubicacion,
                 :modalidad,

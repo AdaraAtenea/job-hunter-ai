@@ -8,10 +8,27 @@ class VacantesController
     public function listar()
     {
         global $conexion;
-
         $vacanteModel = new Vacante($conexion);
-
         return $vacanteModel->obtenerTodas();
+    }
+
+    //Funcion obtener por ID de la vacante
+    public function obtenerPorId($id)
+    {
+        global $conexion;
+        $vacante = new Vacante($conexion);
+        return $vacante->obtenerPorId($id);
+    }
+
+    //Funcion que actualiza los datos de la vacante
+    public function actualizar(){
+        global $conexion;
+        $vacante = new Vacante($conexion);
+        return $vacante->actualizar(
+            $_POST['id'],
+            $_POST['titulo'],
+            $_POST['empresa']
+        );
     }
 
     //Funcion para guardar nuevas vancantes
@@ -30,15 +47,16 @@ class VacantesController
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     $controller = new VacantesController();
-
-    $resultado = $controller->guardar();
-
+    if(isset($_POST['actualizar'])){
+        $resultado = $controller->actualizar();
+    }else{
+        $resultado = $controller->guardar();
+    }
     if($resultado){
         header('Location: ../views/vacantes.php');
         exit;
     }else{
-        echo "Error al guardar la vacante";
+        echo "Error en la operación";
     }
 }

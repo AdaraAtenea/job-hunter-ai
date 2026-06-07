@@ -12,7 +12,6 @@ require_once __DIR__ . '/../layouts/sidebar.php';
 ?>
 
 <!-- CONTENIDO DE LA PAGINA -->
-
 <div class="container mt-4">
 
     <h1>Vacantes Registradas</h1>
@@ -22,8 +21,8 @@ require_once __DIR__ . '/../layouts/sidebar.php';
         <strong><?= count($vacantes) ?></strong>
     </div>
 
-    <a href="#" class="btn btn-success mb-3">
-        Nueva Vacante
+    <a href="nueva_vacante.php" class="btn btn-success mb-3">
+        + Nueva Vacante
     </a>
 
     <div class="table-responsive">
@@ -38,6 +37,7 @@ require_once __DIR__ . '/../layouts/sidebar.php';
                     <th>Ubicación</th>
                     <th>Modalidad</th>
                     <th>Salario</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
 
@@ -52,16 +52,14 @@ require_once __DIR__ . '/../layouts/sidebar.php';
                     <td><?= $vacante['ubicacion'] ?></td>
                     <td><?= $vacante['modalidad'] ?></td>
                     <td><?= $vacante['salario'] ?></td>
+                    <td>
+                        <a href="editar_vacante.php?id=<?= $vacante['id'] ?>" class="btn btn-warning btn-sm">Editar</a>
+                    </td>
                 </tr>
-
                 <?php endforeach; ?>
-
             </tbody>
-
         </table>
-
     </div>
-
 </div>
 
 <?php
