@@ -11,7 +11,7 @@ class Vacante
 
     public function obtenerTodas()
     {
-        $sql = "SELECT * FROM vacantes ORDER BY id DESC";
+        $sql = "SELECT * FROM vacantes ORDER BY compatibilidad DESC";
 
         $stmt = $this->conexion->prepare($sql);
         $stmt->execute();

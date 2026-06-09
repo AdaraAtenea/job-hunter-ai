@@ -56,7 +56,19 @@ require_once __DIR__ . '/../layouts/sidebar.php';
                     <td>
                         <a href="editar_vacante.php?id=<?= $vacante['id'] ?>" class="btn btn-warning btn-sm">Editar</a>
                     </td>
-                    <td><?= $vacante['compatibilidad'] ?>%</td>
+                    <td><?php $color = 'danger';
+                            if($vacante['compatibilidad'] >= 80){
+                                $color = 'success';
+                            }
+                            elseif($vacante['compatibilidad'] >= 60){
+                                $color = 'warning';
+                            }
+                        ?>
+                        <span class="badge bg-<?= $color ?>"><?= $vacante['compatibilidad'] ?>%</span>
+                        <?php if($vacante['compatibilidad'] >= 80): ?>
+                            ⭐
+                        <?php endif; ?></span>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
