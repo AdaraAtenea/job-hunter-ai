@@ -77,6 +77,30 @@ $metricas = $controller->obtenerMetricas();
                 </div>
             </div>
         </div>
+        <div class="col-md-3">
+            <div class="card text-center border-primary">
+                <div class="card-body">
+                    <h2><?= $metricas['remotas'] ?></h2>
+                    <p>Remotas</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-success">
+                <div class="card-body">
+                    <h2>$<?= number_format($metricas['salario_promedio']) ?></h2>
+                    <p>Salario Promedio</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-success">
+                <div class="card-body">
+                    <h2><?= number_format($metricas['compatibilidad_promedio']) ?>%</h2>
+                    <p>Compatibilidad Promedio</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="alert alert-info">

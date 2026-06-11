@@ -135,6 +135,10 @@ class Vacante
         //Obtiene métricas del dashboard
         public function obtenerMetricas(){
             $sql = "SELECT COUNT(*) as total,
+                ROUND(AVG(salario),0) as salario_promedio,
+                ROUND(AVG(compatibilidad),0) as compatibilidad_promedio,
+                SUM(CASE WHEN modalidad='Remoto'
+                    THEN 1 ELSE 0 END) as remotas,
                 SUM(CASE WHEN estado_revision='Nueva'
                     THEN 1 ELSE 0 END) as nuevas,
                 SUM(CASE WHEN estado_revision='Revisada'
