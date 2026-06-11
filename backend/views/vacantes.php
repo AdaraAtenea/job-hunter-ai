@@ -108,6 +108,7 @@ $metricas = $controller->obtenerMetricas();
         <strong><?= count($vacantes) ?></strong>
     </div>
     <a href="nueva_vacante.php" class="btn btn-success mb-3">+ Nueva Vacante</a>
+    <a href="../export/exportar_excel.php" class="btn btn-success mb-3">📊 Exportar Excel</a>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead class="table-dark">
