@@ -31,18 +31,16 @@ class VacantesController
             $_POST['empresa']
         );
     }
+
     //Funcion para actualizar el estado de la vacante
-    public function actualizarEstado()
-{
-    global $conexion;
-
-    $vacante = new Vacante($conexion);
-
-    return $vacante->actualizarEstado(
-        $_POST['id'],
-        $_POST['estado_revision']
-    );
-}
+    public function actualizarEstado(){
+        global $conexion;
+        $vacante = new Vacante($conexion);
+        return $vacante->actualizarEstado(
+            $_POST['id'],
+            $_POST['estado_revision']
+        );
+    }
 
     //Funcion para guardar nuevas vancantes
     public function guardar(){
@@ -69,25 +67,16 @@ class VacantesController
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     $controller = new VacantesController();
-
     if(isset($_POST['actualizar_estado'])){
-
         $resultado = $controller->actualizarEstado();
-
     }
     elseif(isset($_POST['actualizar'])){
-
         $resultado = $controller->actualizar();
-
     }
     else{
-
         $resultado = $controller->guardar();
-
     }
-
     if($resultado){
         header('Location: ../views/vacantes.php');
         exit;
