@@ -125,4 +125,24 @@ class Vacante
     ':url_vacante' => $url_vacante
     ]);
 }
+
+//Para cambiar el estado de la vacante
+public function actualizarEstado(
+    $id,
+    $estado
+)
+{
+    $sql = "
+        UPDATE vacantes
+        SET estado_revision = :estado
+        WHERE id = :id
+    ";
+
+    $stmt = $this->conexion->prepare($sql);
+
+    return $stmt->execute([
+        ':estado' => $estado,
+        ':id' => $id
+    ]);
+}
 }

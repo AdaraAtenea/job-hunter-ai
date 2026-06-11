@@ -48,3 +48,7 @@ ADD url_vacante TEXT;
 
 ALTER TABLE vacantes
 ADD fuente VARCHAR(100);
+
+ALTER TABLE vacantes
+ADD estado_revision VARCHAR(50)
+DEFAULT 'Nueva';
