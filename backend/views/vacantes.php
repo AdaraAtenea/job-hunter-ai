@@ -38,7 +38,10 @@ require_once __DIR__ . '/../layouts/sidebar.php';
                     <th>Modalidad</th>
                     <th>Salario</th>
                     <th>Acciones</th>
+                    <th>Experiencia</th>
                     <th>Compatibilidad</th>
+                    <th>Fuente</th>
+                    <th>Vacante</th>
                 </tr>
             </thead>
 
@@ -69,6 +72,17 @@ require_once __DIR__ . '/../layouts/sidebar.php';
                             ⭐
                         <?php endif; ?></span>
                     </td>
+                    <td><?= $vacante['fuentes'] ?></td>
+                    <td>
+                        <?php if(!empty($vacante['url_vacante'])): ?>
+                            <a href="<?= $vacante['url_vacante'] ?>" target="_blank" class="btn btn-sm btn-primary">Ver Vacante</a>
+                        <?php else: ?>
+                            -
+                        <?php endif; ?>
+                    </td>
+                    <td>
+    <?= $vacante['experiencia_requerida'] ?> años
+</td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>

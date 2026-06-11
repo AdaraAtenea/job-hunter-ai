@@ -77,7 +77,10 @@ class Vacante
     $modalidad,
     $salario,
     $descripcion,
-    $compatibilidad
+    $compatibilidad,
+    $experiencia_requerida,
+    $fuente,
+    $url_vacante
 )
 {
     $sql = "INSERT INTO vacantes
@@ -88,29 +91,38 @@ class Vacante
         modalidad,
         salario,
         descripcion,
-        compatibilidad
+        compatibilidad,
+        experiencia_requerida,
+        fuentes,
+        url_vacante
     )
     VALUES
     (
         :titulo,
-        :empresa,
-        :ubicacion,
-        :modalidad,
-        :salario,
-        :descripcion,
-        :compatibilidad
+    :empresa,
+    :ubicacion,
+    :modalidad,
+    :salario,
+    :descripcion,
+    :compatibilidad,
+    :experiencia_requerida,
+    :fuentes,
+    :url_vacante
     )";
 
     $stmt = $this->conexion->prepare($sql);
 
     return $stmt->execute([
         ':titulo' => $titulo,
-        ':empresa' => $empresa,
-        ':ubicacion' => $ubicacion,
-        ':modalidad' => $modalidad,
-        ':salario' => $salario,
-        ':descripcion' => $descripcion,
-        ':compatibilidad' => $compatibilidad
+    ':empresa' => $empresa,
+    ':ubicacion' => $ubicacion,
+    ':modalidad' => $modalidad,
+    ':salario' => $salario,
+    ':descripcion' => $descripcion,
+    ':compatibilidad' => $compatibilidad,
+    ':experiencia_requerida' => $experiencia_requerida,
+    ':fuentes' => $fuente,
+    ':url_vacante' => $url_vacante
     ]);
 }
 }

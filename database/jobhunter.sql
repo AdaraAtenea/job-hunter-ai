@@ -39,3 +39,12 @@ CREATE TABLE perfil_usuario (
 
 ALTER TABLE vacantes
 ADD compatibilidad INT DEFAULT 0;
+
+ALTER TABLE vacantes
+ADD experiencia_requerida DECIMAL(4,1) DEFAULT 0;
+
+ALTER TABLE vacantes
+ADD url_vacante TEXT;
+
+ALTER TABLE vacantes
+ADD fuente VARCHAR(100);

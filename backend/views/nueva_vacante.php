@@ -29,6 +29,22 @@ require_once __DIR__ . '/../layouts/sidebar.php';
             <label class="form-label">Salario</label>
             <input type="text" name="salario" class="form-control">
         </div>
+
+        <div class="mb-3">
+            <label class="form-label">Experiencia Requerida</label>
+            <input type="number" step="0.5" name="experiencia_requerida" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fuente</label>
+            <input type="text" name="fuente" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">URL de la Vacante</label>
+            <input type="text" name="url_vacante"class="form-control">
+        </div>
+        
         <div class="mb-3">
             <label class="form-label">Descripción</label>
             <textarea name="descripcion" class="form-control" rows="4"></textarea>

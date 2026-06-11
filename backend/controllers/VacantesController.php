@@ -42,14 +42,17 @@ class VacantesController
             $perfil['tecnologias'],
             $_POST['descripcion']
         );
-        return $vacante->guardar(
+       return $vacante->guardar(
             $_POST['titulo'],
             $_POST['empresa'],
             $_POST['ubicacion'],
             $_POST['modalidad'],
             $_POST['salario'],
             $_POST['descripcion'],
-            $compatibilidad);
+            $compatibilidad,
+            $_POST['experiencia_requerida'],
+            $_POST['fuente'],
+            $_POST['url_vacante']);
     }
 }
 
