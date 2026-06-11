@@ -22,7 +22,8 @@ class PerfilUsuario
         $salarioMinimo,
         $salarioIdeal,
         $ubicaciones,
-        $tecnologias
+        $tecnologias,
+        $modalidadPreferida
     )
     {
         $sql = "INSERT INTO perfil_usuario
@@ -31,7 +32,8 @@ class PerfilUsuario
                 salario_minimo,
                 salario_ideal,
                 ubicaciones,
-                tecnologias
+                tecnologias,
+                modalidad_preferida
             )
             VALUES
             (   :nombre_profesional,
@@ -39,7 +41,8 @@ class PerfilUsuario
                 :salario_minimo,
                 :salario_ideal,
                 :ubicaciones,
-                :tecnologias
+                :tecnologias,
+                :modalidad_preferida
             )";
 
         $stmt = $this->conexion->prepare($sql);
@@ -50,7 +53,8 @@ class PerfilUsuario
             ':salario_minimo' => $salarioMinimo,
             ':salario_ideal' => $salarioIdeal,
             ':ubicaciones' => $ubicaciones,
-            ':tecnologias' => $tecnologias
+            ':tecnologias' => $tecnologias,
+            ':modalidad_preferida' => $modalidadPreferida
         ]);
     }
 }

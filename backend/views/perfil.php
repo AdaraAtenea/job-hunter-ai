@@ -31,6 +31,15 @@ require_once __DIR__ . '/../layouts/sidebar.php';
         </div>
 
         <div class="mb-3">
+            <label>Modalidad Preferida</label>
+            <select name="modalidad_preferida" class="form-select">
+                <option value="Remoto">Remoto</option>
+                <option value="Hibrido">Híbrido</option>
+                <option value="Presencial">Presencial</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
             <label>Tecnologías</label>
             <textarea name="tecnologias" class="form-control" rows="5">PHP, MySQL, JavaScript, Bootstrap, Git, GitHub, HTML, CSS</textarea>
         </div>

@@ -20,8 +20,8 @@ class PerfilController
             $_POST['salario_minimo'],
             $_POST['salario_ideal'],
             $_POST['ubicaciones'],
-            $_POST['tecnologias']
-        );
+            $_POST['tecnologias'],
+            $_POST['modalidad_preferida']);
     }
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

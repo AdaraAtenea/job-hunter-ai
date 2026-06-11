@@ -52,3 +52,9 @@ ADD fuente VARCHAR(100);
 ALTER TABLE vacantes
 ADD estado_revision VARCHAR(50)
 DEFAULT 'Nueva';
+
+/*Para mostrar las columnas actuales de una tabla*/
+DESCRIBE perfil_usuario;
+/*Agregar una columna a una tabla*/
+ALTER TABLE perfil_usuario
+ADD modalidad_preferida VARCHAR(100);
