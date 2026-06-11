@@ -56,10 +56,13 @@ class VacantesController
         $perfilModel = new PerfilUsuario($conexion);
         $perfil = $perfilModel->obtener();
         $compatibilidad = $vacante->calcularCompatibilidad(
-            $perfil['tecnologias'],
-            $_POST['descripcion']
-        );
-       return $vacante->guardar(
+            $perfil,
+            $_POST['descripcion'],
+            $_POST['salario'],
+            $_POST['experiencia_requerida'],
+            $_POST['modalidad']);
+            
+        return $vacante->guardar(
             $_POST['titulo'],
             $_POST['empresa'],
             $_POST['ubicacion'],

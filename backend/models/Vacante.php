@@ -38,10 +38,14 @@ class Vacante
     }
 
     //Funcion para la compatibilidad de la vacante con el perfil del usuario
-    public function calcularCompatibilidad($tecnologiasPerfil, $descripcionVacante){
-        $perfil = explode(',', strtolower($tecnologiasPerfil));
+    public function calcularCompatibilidad($perfil, $descripcionVacante, $salarioVacante, $experienciaVacante, $modalidadVacante){
+        $compatibilidad = 0;
+        // TECNOLOGIAS (60%)
+        $tecnologias = explode(
+            ',',
+            strtolower($perfil['tecnologias']));
         $coincidencias = 0;
-        foreach($perfil as $tecnologia){
+        foreach($tecnologias as $tecnologia){
             $tecnologia = trim($tecnologia);
             if(
                 strpos(
@@ -52,12 +56,22 @@ class Vacante
                 $coincidencias++;
             }
         }
-        if(count($perfil) == 0){
-            return 0;
+        if(count($tecnologias) > 0){
+            $compatibilidad += (($coincidencias / count($tecnologias))* 60);
         }
-        return round(
-            ($coincidencias / count($perfil)) * 100
-        );
+        // SALARIO (20%)
+        if($salarioVacante >= $perfil['salario_minimo']){
+            $compatibilidad += 20;
+        }
+        // EXPERIENCIA (10%)
+        if($experienciaVacante <=  $perfil['experiencia_anios']){
+            $compatibilidad += 10;
+        }
+        // MODALIDAD (10%)
+        if( strtolower($modalidadVacante) == strtolower( $perfil['modalidad_preferida'])){
+            $compatibilidad += 10;
+        }
+        return round($compatibilidad);
     }
 
     //Para guardar las vacantes nuevas
@@ -120,12 +134,21 @@ class Vacante
 
         //Obtiene métricas del dashboard
         public function obtenerMetricas(){
-            $sql = "SELECT
-                COUNT(*) as total,
-                SUM(CASE WHEN estado_revision='Nueva' THEN 1 ELSE 0 END) as nuevas,
-                SUM(CASE WHEN estado_revision='Revisada' THEN 1 ELSE 0 END) as revisadas,
-                SUM(CASE WHEN estado_revision='Aplicada' THEN 1 ELSE 0 END) as aplicadas,
-                SUM(CASE WHEN estado_revision='Descartada' THEN 1 ELSE 0 END) as descartadas
+            $sql = "SELECT COUNT(*) as total,
+                SUM(CASE WHEN estado_revision='Nueva'
+                    THEN 1 ELSE 0 END) as nuevas,
+                SUM(CASE WHEN estado_revision='Revisada'
+                    THEN 1 ELSE 0 END) as revisadas,
+                SUM(CASE WHEN estado_revision='Aplicada'
+                    THEN 1 ELSE 0 END) as aplicadas,
+                SUM(CASE WHEN estado_revision='Entrevista'
+                    THEN 1 ELSE 0 END) as entrevistas,
+                SUM(CASE WHEN estado_revision='Oferta'
+                    THEN 1 ELSE 0 END) as ofertas,
+                SUM(CASE WHEN estado_revision='Contratado'
+                    THEN 1 ELSE 0 END) as contratados,
+                SUM(CASE WHEN estado_revision='Descartada'
+                    THEN 1 ELSE 0 END) as descartadas
                 FROM vacantes";
             $stmt = $this->conexion->prepare($sql);
             $stmt->execute();

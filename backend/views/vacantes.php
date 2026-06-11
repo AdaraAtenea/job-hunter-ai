@@ -26,30 +26,58 @@ $metricas = $controller->obtenerMetricas();
                 <div class="card-body">
                     <h2><?= $metricas['nuevas'] ?></h2>
                     <p>Nuevas</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-info">
+                <div class="card-body">
+                    <h2><?= $metricas['revisadas'] ?></h2>
+                    <p>Revisadas</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-success">
+                <div class="card-body">
+                    <h2><?= $metricas['aplicadas'] ?></h2>
+                    <p>Aplicadas</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-danger">
+                <div class="card-body">
+                    <h2><?= $metricas['descartadas'] ?></h2>
+                    <p>Descartadas</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-warning">
+                <div class="card-body">
+                    <h2><?= $metricas['entrevistas'] ?></h2>
+                    <p>Entrevistas</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-secondary">
+                <div class="card-body">
+                    <h2><?= $metricas['ofertas'] ?></h2>
+                    <p>Ofertas</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-dark">
+                <div class="card-body">
+                    <h2><?= $metricas['contratados'] ?></h2>
+                    <p>Contratados</p>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="col-md-3">
-        <div class="card text-center border-success">
-            <div class="card-body">
-                <h2><?= $metricas['aplicadas'] ?></h2>
-                <p>Aplicadas</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card text-center border-danger">
-            <div class="card-body">
-                <h2><?= $metricas['descartadas'] ?></h2>
-                <p>Descartadas</p>
-            </div>
-        </div>
-    </div>
-
-</div>
-
 
     <div class="alert alert-info">
         Total de vacantes:
@@ -91,10 +119,19 @@ $metricas = $controller->obtenerMetricas();
                         case 'Aplicada':
                             $colorEstado = 'success';
                         break;
+                        case 'Entrevista':
+                            $colorEstado = 'warning';
+                        break;
+                        case 'Oferta':
+                            $colorEstado = 'secondary';
+                        break;
+                        case 'Contratado':
+                            $colorEstado = 'dark';
+                        break;
                         case 'Descartada':
                             $colorEstado = 'danger';
                         break;
-                        }?>
+                    }?>
                         <span class="badge bg-<?= $colorEstado ?>"><?= $estado ?></span>
                     </td>
                     <td><?= $vacante['titulo'] ?></td>

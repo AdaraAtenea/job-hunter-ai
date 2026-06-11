@@ -30,6 +30,15 @@ $vacante = $controller->obtenerPorId($id);
                     <option value="Aplicada"
                         <?= $vacante['estado_revision'] == 'Aplicada' ? 'selected' : '' ?>>✅ Aplicada
                     </option>
+                    <option value="Entrevista"
+                        <?= $vacante['estado_revision'] == 'Entrevista' ? 'selected' : '' ?>>📅 Entrevista
+                    </option>
+                    <option value="Oferta"
+                        <?= $vacante['estado_revision'] == 'Oferta' ? 'selected' : '' ?>>🤝 Oferta
+                    </option>
+                    <option value="Contratado"
+                        <?= $vacante['estado_revision'] == 'Contratado' ? 'selected' : '' ?>>🎉 Contratado
+                    </option>
                     <option value="Descartada"
                         <?= $vacante['estado_revision'] == 'Descartada' ? 'selected' : '' ?>>❌ Descartada
                     </option>
