@@ -117,4 +117,18 @@ class Vacante
                 ':id' => $id
             ]);
         }
+
+        //Obtiene métricas del dashboard
+        public function obtenerMetricas(){
+            $sql = "SELECT
+                COUNT(*) as total,
+                SUM(CASE WHEN estado_revision='Nueva' THEN 1 ELSE 0 END) as nuevas,
+                SUM(CASE WHEN estado_revision='Revisada' THEN 1 ELSE 0 END) as revisadas,
+                SUM(CASE WHEN estado_revision='Aplicada' THEN 1 ELSE 0 END) as aplicadas,
+                SUM(CASE WHEN estado_revision='Descartada' THEN 1 ELSE 0 END) as descartadas
+                FROM vacantes";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
 }

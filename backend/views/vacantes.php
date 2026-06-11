@@ -1,15 +1,56 @@
 <?php
 require_once __DIR__ . '/../controllers/VacantesController.php';
-$controller = new VacantesController();
-$vacantes = $controller->listar();
-
 require_once __DIR__ . '/../layouts/header.php';
 require_once __DIR__ . '/../layouts/sidebar.php';
+
+$controller = new VacantesController();
+$vacantes = $controller->listar();
+$metricas = $controller->obtenerMetricas();
+
 ?>
 
 <!-- CONTENIDO DE LA PAGINA -->
 <div class="container mt-4">
     <h1>Vacantes Registradas</h1>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-center border-primary">
+                <div class="card-body">
+                    <h2><?= $metricas['total'] ?></h2>
+                    <p>Total Vacantes</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-info">
+                <div class="card-body">
+                    <h2><?= $metricas['nuevas'] ?></h2>
+                    <p>Nuevas</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center border-success">
+            <div class="card-body">
+                <h2><?= $metricas['aplicadas'] ?></h2>
+                <p>Aplicadas</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center border-danger">
+            <div class="card-body">
+                <h2><?= $metricas['descartadas'] ?></h2>
+                <p>Descartadas</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
     <div class="alert alert-info">
         Total de vacantes:
         <strong><?= count($vacantes) ?></strong>

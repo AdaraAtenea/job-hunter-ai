@@ -13,6 +13,13 @@ class VacantesController
         return $vacanteModel->obtenerTodas();
     }
 
+    //Funcion para obtener las metricas
+    public function obtenerMetricas(){
+        global $conexion;
+        $vacante = new Vacante($conexion);
+        return $vacante->obtenerMetricas();
+    }
+
     //Funcion obtener por ID de la vacante
     public function obtenerPorId($id)
     {
