@@ -1,4 +1,5 @@
 import requests
+import mysql.connector
 
 url = "https://remoteok.com/api"
 
@@ -11,38 +12,126 @@ response = requests.get(
 
 data = response.json()
 
+conexion = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="jobhunter_ai"
+)
+
+cursor = conexion.cursor()
+
 print("Total registros recibidos:", len(data))
 
-palabras_clave = [
+contador = 0
+
+palabras_permitidas = [
     "developer",
-    "software",
     "backend",
     "frontend",
     "full stack",
+    "software",
     "web",
     "php",
-    "javascript"
+    "javascript",
+    "engineer"
 ]
 
-for vacantes in data[1:]:
+for vacante in data[1:]:
 
     puesto = str(
-        vacantes.get("position", "")
+        vacante.get("position", "")
     ).lower()
 
     coincide = False
 
-    for palabra in palabras_clave:
+    for palabra in palabras_permitidas:
 
         if palabra in puesto:
             coincide = True
             break
 
-    if coincide:
+    if not coincide:
+        continue
 
-        print("\n===================================")
-        print("Puesto:", vacantes.get("position"))
-        print("Empresa:", vacantes.get("company"))
-        print("Ubicación:", vacantes.get("location"))
-        print("Tecnologías:", vacantes.get("tags"))
-        print("===================================")
+    contador += 1
+
+    # VERIFICAR SI YA EXISTE
+
+    sql_verificar = """
+    SELECT 1
+    FROM vacantes
+    WHERE titulo = %s
+    AND empresa = %s
+    LIMIT 1
+    """
+
+    cursor.execute(
+        sql_verificar,
+        (
+            vacante.get("position"),
+            vacante.get("company")
+        )
+    )
+
+    resultado = cursor.fetchone()
+
+    if resultado:
+
+        print(
+            "Ya existe:",
+            vacante.get("position"),
+            "-",
+            vacante.get("company")
+        )
+
+        continue
+
+    # INSERTAR NUEVA VACANTE
+
+    sql = """
+    INSERT INTO vacantes
+    (
+        titulo,
+        empresa,
+        ubicacion,
+        modalidad,
+        salario,
+        descripcion,
+        compatibilidad,
+        fuentes
+    )
+    VALUES
+    (
+        %s,%s,%s,%s,%s,%s,%s,%s
+    )
+    """
+
+    cursor.execute(
+        sql,
+        (
+            vacante.get("position"),
+            vacante.get("company"),
+            vacante.get("location"),
+            "Remoto",
+            0,
+            vacante.get("description", "")[:1000],
+            0,
+            "RemoteOK"
+        )
+    )
+
+    print("\n===================================")
+    print("Nueva vacante guardada")
+    print("Puesto:", vacante.get("position"))
+    print("Empresa:", vacante.get("company"))
+    print("===================================")
+
+print("\n===================================")
+print("Total vacantes filtradas:", contador)
+print("===================================")
+
+conexion.commit()
+
+cursor.close()
+conexion.close()

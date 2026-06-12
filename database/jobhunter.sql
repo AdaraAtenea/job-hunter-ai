@@ -58,3 +58,4 @@ DESCRIBE perfil_usuario;
 /*Agregar una columna a una tabla*/
 ALTER TABLE perfil_usuario
 ADD modalidad_preferida VARCHAR(100);
+
