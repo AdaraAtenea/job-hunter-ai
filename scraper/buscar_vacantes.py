@@ -3,21 +3,11 @@ import mysql.connector
 
 url = "https://remoteok.com/api"
 
-response = requests.get(
-    url,
-    headers={
-        "User-Agent": "Mozilla/5.0"
-    }
-)
+response = requests.get(url, headers={ "User-Agent": "Mozilla/5.0"})
 
 data = response.json()
 
-conexion = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="jobhunter_ai"
-)
+conexion = mysql.connector.connect(host="localhost",user="root",password="",database="jobhunter_ai")
 
 cursor = conexion.cursor()
 
@@ -76,6 +66,11 @@ for vacante in data[1:]:
 
     resultado = cursor.fetchone()
 
+    print("\n-----")
+    print("Puesto:", vacante.get("position"))
+    print("URL:", vacante.get("url"))
+    print("Apply URL:", vacante.get("apply_url"))
+
     if resultado:
 
         print(
@@ -86,8 +81,6 @@ for vacante in data[1:]:
         )
 
         continue
-
-    # INSERTAR NUEVA VACANTE
 
     sql = """
     INSERT INTO vacantes
@@ -125,6 +118,7 @@ for vacante in data[1:]:
     print("Nueva vacante guardada")
     print("Puesto:", vacante.get("position"))
     print("Empresa:", vacante.get("company"))
+    print("URL:", vacante.get("url"))
     print("===================================")
 
 print("\n===================================")
