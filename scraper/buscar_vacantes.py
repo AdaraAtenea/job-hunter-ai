@@ -1,13 +1,27 @@
 import requests
 import mysql.connector
 
+# API RemoteOK
+
 url = "https://remoteok.com/api"
 
-response = requests.get(url, headers={ "User-Agent": "Mozilla/5.0"})
+response = requests.get(
+    url,
+    headers={
+        "User-Agent": "Mozilla/5.0"
+    }
+)
 
 data = response.json()
 
-conexion = mysql.connector.connect(host="localhost",user="root",password="",database="jobhunter_ai")
+# CONEXIÓN MYSQL
+
+conexion = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="jobhunter_ai"
+)
 
 cursor = conexion.cursor()
 
@@ -15,17 +29,102 @@ print("Total registros recibidos:", len(data))
 
 contador = 0
 
+# FILTRO DE PUESTOS
+
 palabras_permitidas = [
     "developer",
     "backend",
     "frontend",
     "full stack",
-    "software",
-    "web",
-    "php",
-    "javascript",
-    "engineer"
+    "software engineer",
+    "software developer",
+    "web developer",
+    "php developer",
+    "javascript developer"
 ]
+
+# TECNOLOGÍAS DE TU PERFIL
+
+tecnologias_usuario = [
+    "php",
+    "mysql",
+    "javascript",
+    "html",
+    "css",
+    "bootstrap",
+    "react",
+    "git",
+    "python"
+]
+
+
+def calcular_compatibilidad(
+    tecnologias_usuario,
+    puesto,
+    descripcion,
+    tags
+):
+
+    texto = (
+        puesto + " " +
+        descripcion + " " +
+        " ".join(tags)
+    ).lower()
+
+    coincidencias = 0
+
+    for tecnologia in tecnologias_usuario:
+
+        if tecnologia.lower() in texto:
+            coincidencias += 1
+
+    return int(
+        (coincidencias / len(tecnologias_usuario))
+        * 100
+    )
+
+
+def calcular_score(
+    compatibilidad,
+    puesto,
+    descripcion
+):
+
+    texto = (
+        puesto + " " + descripcion
+    ).lower()
+
+    score = compatibilidad
+
+    # Junior
+
+    if "junior" in texto or "jr" in texto:
+        score += 15
+
+    # PHP
+
+    if "php" in texto:
+        score += 15
+
+    # JavaScript
+
+    if "javascript" in texto:
+        score += 10
+
+    # MySQL
+
+    if "mysql" in texto:
+        score += 10
+
+    # Remoto
+
+    score += 10
+
+    if score > 100:
+        score = 100
+
+    return score
+
 
 for vacante in data[1:]:
 
@@ -46,7 +145,7 @@ for vacante in data[1:]:
 
     contador += 1
 
-    # VERIFICAR SI YA EXISTE
+    # VERIFICAR DUPLICADOS
 
     sql_verificar = """
     SELECT 1
@@ -69,7 +168,6 @@ for vacante in data[1:]:
     print("\n-----")
     print("Puesto:", vacante.get("position"))
     print("URL:", vacante.get("url"))
-    print("Apply URL:", vacante.get("apply_url"))
 
     if resultado:
 
@@ -82,6 +180,34 @@ for vacante in data[1:]:
 
         continue
 
+    # CALCULAR COMPATIBILIDAD
+
+    compatibilidad = calcular_compatibilidad(
+        tecnologias_usuario,
+        vacante.get("position", ""),
+        vacante.get("description", ""),
+        vacante.get("tags", [])
+    )
+
+    # CALCULAR SCORE
+
+    score = calcular_score(
+        compatibilidad,
+        vacante.get("position", ""),
+        vacante.get("description", "")
+    )
+
+    print("Compatibilidad:", compatibilidad, "%")
+    print("Score:", score)
+    print("Tags:", vacante.get("tags"))
+
+    # FILTRO TEMPORAL PARA PRUEBAS
+
+    if compatibilidad < 10:
+        continue
+
+    # INSERTAR VACANTE
+
     sql = """
     INSERT INTO vacantes
     (
@@ -91,12 +217,14 @@ for vacante in data[1:]:
         modalidad,
         salario,
         descripcion,
+        url_vacante,
         compatibilidad,
+        score,
         fuentes
     )
     VALUES
     (
-        %s,%s,%s,%s,%s,%s,%s,%s
+        %s,%s,%s,%s,%s,%s,%s,%s,%s,%s
     )
     """
 
@@ -109,7 +237,9 @@ for vacante in data[1:]:
             "Remoto",
             0,
             vacante.get("description", "")[:1000],
-            0,
+            vacante.get("url"),
+            compatibilidad,
+            score,
             "RemoteOK"
         )
     )
@@ -118,6 +248,8 @@ for vacante in data[1:]:
     print("Nueva vacante guardada")
     print("Puesto:", vacante.get("position"))
     print("Empresa:", vacante.get("company"))
+    print("Compatibilidad:", compatibilidad, "%")
+    print("Score:", score)
     print("URL:", vacante.get("url"))
     print("===================================")
 

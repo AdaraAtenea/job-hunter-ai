@@ -59,3 +59,19 @@ DESCRIBE perfil_usuario;
 ALTER TABLE perfil_usuario
 ADD modalidad_preferida VARCHAR(100);
 
+//Describe la tabla
+DESCRIBE vacantes;
+
+//agrega a vacantes la fecha de aplicacion
+ALTER TABLE vacantes
+ADD fecha_aplicacion DATETIME NULL;
+
+UPDATE vacantes
+SET estado_revision = 'Aplicada'
+WHERE id = 38;
+
+ALTER TABLE vacantes
+ADD favorita TINYINT(1) DEFAULT 0;
+
+ALTER TABLE vacantes
+ADD score INT DEFAULT 0;
