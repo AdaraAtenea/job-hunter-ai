@@ -1,3 +1,4 @@
+from notifications.enviar_correo import enviar_correo
 import requests
 import mysql.connector
 # API RemoteOK
@@ -94,34 +95,28 @@ def calcular_score(
     score = compatibilidad
 
     # Junior
-
     if "junior" in texto or "jr" in texto:
         score += 15
 
     # PHP
-
     if "php" in texto:
         score += 15
 
     # JavaScript
-
     if "javascript" in texto:
         score += 10
 
     # MySQL
-
     if "mysql" in texto:
         score += 10
 
     # Remoto
-
     score += 10
 
     if score > 100:
         score = 100
 
     return score
-
 
 for vacante in data[1:]:
 
@@ -257,6 +252,16 @@ for vacante in data[1:]:
             "RemoteOK"
         )
     )
+
+    # ENVIAR CORREO SOLO SI SCORE ES ALTO
+    if score >= 55:
+        enviar_correo(
+            vacante.get("position"),
+            vacante.get("company"),
+            compatibilidad,
+            score,
+            vacante.get("apply_url") or vacante.get("url")
+        )
 
     print("\n===================================")
     print("Nueva vacante guardada")
