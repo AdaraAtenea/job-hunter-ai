@@ -1,8 +1,6 @@
 import requests
 import mysql.connector
-
 # API RemoteOK
-
 url = "https://remoteok.com/api"
 
 response = requests.get(
@@ -15,7 +13,6 @@ response = requests.get(
 data = response.json()
 
 # CONEXIÓN MYSQL
-
 conexion = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -169,6 +166,15 @@ for vacante in data[1:]:
     print("Puesto:", vacante.get("position"))
     print("URL:", vacante.get("url"))
 
+    #import json
+    #print(
+    #   json.dumps(
+    #      vacante,
+    #   indent=4,
+    #        ensure_ascii=False
+    #    )
+    #)
+
     if resultado:
 
         print(
@@ -181,7 +187,6 @@ for vacante in data[1:]:
         continue
 
     # CALCULAR COMPATIBILIDAD
-
     compatibilidad = calcular_compatibilidad(
         tecnologias_usuario,
         vacante.get("position", ""),
@@ -190,12 +195,19 @@ for vacante in data[1:]:
     )
 
     # CALCULAR SCORE
-
     score = calcular_score(
         compatibilidad,
         vacante.get("position", ""),
         vacante.get("description", "")
     )
+
+    #Salario
+    salario = ""
+    if vacante.get("salary_min", 0) > 0:
+        salario = (
+            f"{vacante.get('salary_min')} - "
+            f"{vacante.get('salary_max')}"
+        )
 
     print("Compatibilidad:", compatibilidad, "%")
     print("Score:", score)
@@ -218,13 +230,14 @@ for vacante in data[1:]:
         salario,
         descripcion,
         url_vacante,
+        fecha_publicacion,
         compatibilidad,
         score,
         fuentes
     )
     VALUES
     (
-        %s,%s,%s,%s,%s,%s,%s,%s,%s,%s
+        %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s
     )
     """
 
@@ -235,9 +248,10 @@ for vacante in data[1:]:
             vacante.get("company"),
             vacante.get("location"),
             "Remoto",
-            0,
+            salario,
             vacante.get("description", "")[:1000],
-            vacante.get("url"),
+            vacante.get("apply_url") or vacante.get("url"),
+            vacante.get("date", "")[:10],
             compatibilidad,
             score,
             "RemoteOK"
