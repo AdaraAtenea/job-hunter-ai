@@ -109,6 +109,29 @@ def calcular_score(
     # MySQL
     if "mysql" in texto:
         score += 10
+    
+    if "react" in texto:
+        score += 10
+
+    # Bootstrap
+    if "bootstrap" in texto:
+        score += 5
+
+    # Git
+    if "git" in texto:
+        score += 5
+
+    # Python
+    if "python" in texto:
+        score += 10
+
+    # Full Stack
+    if "full stack" in texto:
+        score += 15
+
+    # México / CDMX
+    if "mexico" in texto or "cdmx" in texto:
+        score += 10
 
     # Remoto
     score += 10
@@ -196,6 +219,12 @@ for vacante in data[1:]:
         vacante.get("description", "")
     )
 
+    # FAVORITA AUTOMÁTICA
+    favorita = 0
+    if score >= 80:
+        favorita = 1
+
+
     #Salario
     salario = ""
     if vacante.get("salary_min", 0) > 0:
@@ -228,11 +257,12 @@ for vacante in data[1:]:
         fecha_publicacion,
         compatibilidad,
         score,
+        favorita,
         fuentes
     )
     VALUES
     (
-        %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s
+        %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s
     )
     """
 
@@ -249,12 +279,13 @@ for vacante in data[1:]:
             vacante.get("date", "")[:10],
             compatibilidad,
             score,
+            favorita,
             "RemoteOK"
         )
     )
 
     # ENVIAR CORREO SOLO SI SCORE ES ALTO
-    if score >= 55:
+    if score >= 65:
         enviar_correo(
             vacante.get("position"),
             vacante.get("company"),
